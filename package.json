@@ -1,0 +1,30 @@
+{
+  "name": "moviecast-api",
+  "version": "0.0.1",
+  "description": "The Backend API Server of MovieCast",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MovieCast/api.git"
+  },
+  "private": true,
+  "author": "Dizzy <itsdizzy40@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MovieCast/api/issues"
+  },
+  "homepage": "https://github.com/MovieCast/api#readme",
+  "dependencies": {
+    "lerna": "^2.11.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
+  },
+  "workspaces": ["packages/*"]
+}

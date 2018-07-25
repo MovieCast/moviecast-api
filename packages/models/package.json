@@ -1,0 +1,24 @@
+{
+  "name": "@moviecast/api-models",
+  "version": "0.0.1",
+  "description": "Models for MovieCast's API",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "babel src -d build",
+    "build:watch": "babel src -w -d build",
+    "prepublish": "npm run build"
+  },
+  "author": "Dizzy <itsdizzy40@gmail.com>",
+  "homepage": "https://github.com/MovieCast/api#readme",
+  "bugs": {
+    "url": "https://github.com/MovieCast/api/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MovieCast/api.git"
+  },
+  "dependencies": {
+    "mongoose": "^5.2.5"
+  }
+}
