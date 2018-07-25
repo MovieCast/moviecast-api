@@ -1,2 +1,4 @@
-# moviecast-api
-MovieCast API - The client side api to get movies, tv shows and more
+# MovieCast API
+Backend API Server of MovieCast.
+
+The API is responsible for delivering annoucements, update information and most importantly, content to watch.
