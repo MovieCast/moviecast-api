@@ -1,6 +1,6 @@
 {
   "name": "@moviecast/api-models",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Models for MovieCast's API",
   "main": "build/index.js",
   "scripts": {
