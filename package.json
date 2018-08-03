@@ -4,6 +4,7 @@
   "description": "The Backend API Server of MovieCast",
   "main": "index.js",
   "scripts": {
+    "build": "lerna run --stream build",
     "api": "lerna run --stream --scope @moviecast/api-server dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
