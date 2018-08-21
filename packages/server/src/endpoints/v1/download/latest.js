@@ -18,18 +18,26 @@ module.exports = {
         }
       }
 
-      const version = await Version
-        .find({ channel: { name: 'stable' }})
+
+      // TODO: Use aggregate instead, this is faster.
+      const versions = await Version
+        .find({ channel: 'stable' })
         .sort({
           createdAt: 'desc'
         })
         .limit(10)
-        .populate('assets', { platform });
+        .populate({
+          path: 'assets',
+          match: { platform }
+        })
+        .exec();
 
-      
+      const filteredVersions = versions.filter(version => version.assets.length > 0);
+
+
       return {
         platform,
-        version
+        version: filteredVersions[0]
       }
     } catch(e) {
       console.log(e);

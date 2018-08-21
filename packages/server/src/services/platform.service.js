@@ -1,4 +1,5 @@
 import useragent from 'express-useragent';
+import { Platform } from '@moviecast/api-models';
 
 class PlatformService {
   constructor() {
@@ -8,6 +9,20 @@ class PlatformService {
       WINDOWS: 'windows',
       ANDROID: 'android'
     }
+  }
+
+  async findByName(platformName) {
+    return Platform.findByName(platformName);
+  }
+
+  async findByNames(platformNames) {
+    return Platform.findByNames(platformNames);
+  }
+
+  async isValidPlatform(platformName) {
+    const platform = await this.findByName(platformName);
+
+    return !!platform;
   }
 
   detectFromRequest(request) {
