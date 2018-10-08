@@ -3,8 +3,10 @@ import { URL } from 'url';
 
 export const connect = async () => {
   const {
-    MONGO_HOST = 'localhost',
-    MONGO_PORT = 27017,
+    MONGO_HOST = '192.168.99.100',
+    //MONGO_HOST = 'localhost',
+      MONGO_PORT = 32769,
+    //MONGO_PORT = 27017,
     MONGO_DATABASE = 'moviecast-api',
     MONGO_USER = null,
     MONGO_PASS = null

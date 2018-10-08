@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "lerna run --stream build",
+    "dev": "lerna run --stream build && lerna run --stream --scope @moviecast/api-server dev",
     "api": "lerna run --stream --scope @moviecast/api-server dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

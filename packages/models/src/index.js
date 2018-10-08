@@ -5,3 +5,4 @@ export { default as Asset } from './models/asset.model';
 export { default as Channel } from './models/channel.model';
 export { default as Platform } from './models/platform.model';
 export { default as Version } from './models/version.model';
+export { default as Announcements } from './models/announcements.model';
