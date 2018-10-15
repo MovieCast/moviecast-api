@@ -2,13 +2,7 @@ import { Announcements } from '@moviecast/api-models';
 
 class AnnouncementsService {
     /**
-     * Returns the latest version
-     * 
-     * The return version is based on the specified
-     * platform and version.
-     * 
-     * @param {ObjectId} platform The platform objectid
-     * @param {String} version    The version (semver compatible)
+     * Returns the Announcements
      */
     async getLatestAnnouncement() {
         var AnnouncementMap = [];
