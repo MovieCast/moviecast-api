@@ -62,6 +62,7 @@ module.exports = [{
     }
   },
   options: {
+    auth: 'jwt',
     validate: {
       payload: {
         title: Joi.string(),

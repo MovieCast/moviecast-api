@@ -1,4 +1,6 @@
 import Boom from 'boom';
+import Joi from 'joi';
+
 import { AnnouncementService } from '../../services';
 
 module.exports = [{
@@ -37,17 +39,30 @@ module.exports = [{
 }, {
   method: 'POST',
   path: '/announcements',
-  handler: async ({ payload }) => {
+  handler: async ({ payload, auth }) => {
     try {
-      const Announcement = await AnnouncementService.createAnnouncement(payload);
-      if (!Announcement) {
+      const announcement = await AnnouncementService.createAnnouncement({
+        ...payload,
+        authorId: auth.credentials.id
+      });
+
+      if (!announcement) {
         return Boom.internal('Unexpected error occured, Announcement was not created');
       }
 
-      return Announcement;
+      return announcement;
     } catch (e) {
       console.log(e);
       return Boom.internal();
+    }
+  },
+  options: {
+    auth: 'jwt',
+    validate: {
+      payload: {
+        title: Joi.string(),
+        content: Joi.string()
+      }
     }
   }
 }, {
@@ -65,6 +80,15 @@ module.exports = [{
       console.log("Hellooww??");
       console.log(e);
       return Boom.internal();
+    }
+  },
+  options: {
+    auth: 'jwt',
+    validate: {
+      payload: {
+        title: Joi.string(),
+        content: Joi.string()
+      }
     }
   }
 }]
