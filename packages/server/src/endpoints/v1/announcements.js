@@ -1,75 +1,70 @@
 import Boom from 'boom';
-import { AnnouncementsService } from '../../services';
+import { AnnouncementService } from '../../services';
 
 module.exports = [{
-    method: 'GET',
-    path: '/announcements/{id}',
-    handler: async (req) => {
-        try {
-            const { id = 'latest' } = req.params;
-            if (id == 'latest') {
-                const Announcement = await AnnouncementsService.getLatestAnnouncement();
-                return Announcement;
-            } else {
-                const Announcement = await AnnouncementsService.getAnnouncement(id);
-                return Announcement;
-            }
-        } catch (e) {
-            console.log(e);
-            return Boom.internal();
-        }
+  method: 'GET',
+  path: '/announcements/{id}',
+  handler: async ({ params: { id = 'latest' } } = {}) => {
+    try {
+      let annoucement;
+      if (id === 'latest') {
+        annoucement = await AnnouncementService.getLatestAnnouncement();
+      } else {
+        annoucement = await AnnouncementService.getAnnouncement(id);
+      }
+
+      if(annoucement != null) {
+        return annoucement;
+      }
+
+      return Boom.notFound('Given announcement was not found or removed');
+    } catch (e) {
+      console.log(e);
+      return Boom.internal();
     }
+  }
 }, {
-    method: 'GET',
-    path: '/announcements',
-    handler: async (req) => {
-        try {
-            const Announcement = await AnnouncementsService.getAnnouncements();
-
-            return Announcement;
-        } catch (e) {
-            console.log(e);
-            return Boom.internal();
-        }
+  method: 'GET',
+  path: '/announcements',
+  handler: async () => {
+    try {
+      return await AnnouncementService.getAnnouncements();
+    } catch (e) {
+      console.log(e);
+      return Boom.internal();
     }
+  }
 }, {
-    method: 'POST',
-    path: '/announcements',
-    handler: async (req) => {
-        try {
-            const { content } = req.payload;
+  method: 'POST',
+  path: '/announcements',
+  handler: async ({ payload }) => {
+    try {
+      const Announcement = await AnnouncementService.createAnnouncement(payload);
+      if (!Announcement) {
+        return Boom.internal('Unexpected error occured, Announcement was not created');
+      }
 
-
-            const Announcement = await AnnouncementsService.createAnnouncement({ content: content });
-            if (!Announcement) {
-                return Boom.internal('Unexpected error occured, Announcement was not created');
-            }
-
-            return Announcement;
-        } catch (e) {
-            console.log("Hellooww??");
-            console.log(e);
-            return Boom.internal();
-        }
+      return Announcement;
+    } catch (e) {
+      console.log(e);
+      return Boom.internal();
     }
+  }
 }, {
-    method: 'POST',
-    path: '/announcements/update',
-    handler: async (req) => {
-        try {
-            const { id, content } = req.payload;
+  method: 'POST',
+  path: '/announcements/{id}',
+  handler: async ({ params: { id }, payload }) => {
+    try {
+      const Announcement = await AnnouncementService.updateAnnouncement(id, payload);
+      if (!Announcement) {
+          return Boom.internal('Unexpected error occured, Announcement was not updated');
+      }
 
-
-            const Announcement = await AnnouncementsService.updateAnnouncement({ id: id, content: content });
-            if (!Announcement) {
-                return Boom.internal('Unexpected error occured, Announcement was not updated');
-            }
-
-            return Announcement;
-        } catch (e) {
-            console.log("Hellooww??");
-            console.log(e);
-            return Boom.internal();
-        }
+      return Announcement;
+    } catch (e) {
+      console.log("Hellooww??");
+      console.log(e);
+      return Boom.internal();
     }
+  }
 }]

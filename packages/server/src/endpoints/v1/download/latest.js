@@ -6,9 +6,10 @@ import { PlatformService } from '../../../services';
 module.exports = {
   method: 'GET',
   path: '/latest/{platform?}',
-  handler: async (request) => {
+  handler: async (req) => {
+    const { platform: platformName } = req.params;
     try {
-      let platform = request.params.platform;
+      const platform = request.params.platform;
 
       if (!platform) {
         platform = PlatformService.detectFromRequest(request);
