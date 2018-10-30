@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
-import { URL } from 'url';
+
+// TEMPFIX: As suggested on https://github.com/Automattic/mongoose/issues/6890
+mongoose.set('useCreateIndex', true);
 
 export const connect = async () => {
   const {
@@ -11,10 +13,11 @@ export const connect = async () => {
     MONGO_PASS = null
   } = process.env;
 
-  const uri = `mongodb://${MONGO_HOST}:${MONGO_PORT}`;
+  const uri = `mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_AUTH}`;
 
   // Connect to mongo db using mongoose
-  await mongoose.connect(uri, { authdb: MONGO_AUTH, dbName: MONGO_DATABASE, user: MONGO_USER, pass: MONGO_PASS });
+  await mongoose.connect(uri, { dbName: MONGO_DATABASE, user: MONGO_USER, pass: MONGO_PASS, useNewUrlParser: true });
+
   console.info(`Connected to ${uri}`);
 }
 

@@ -19,6 +19,6 @@
     "url": "git+https://github.com/MovieCast/api.git"
   },
   "dependencies": {
-    "mongoose": "^5.2.5"
+    "mongoose": "^5.3.7"
   }
 }
