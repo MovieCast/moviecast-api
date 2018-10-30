@@ -7,12 +7,11 @@ module.exports = {
   method: 'GET',
   path: '/latest/{platform?}',
   handler: async (req) => {
-    const { platform: platformName } = req.params;
     try {
-      const platform = request.params.platform;
+      let platform = req.params.platform;
 
       if (!platform) {
-        platform = PlatformService.detectFromRequest(request);
+        platform = PlatformService.detectFromRequest(req);
 
         if (!platform) {
           return Boom.internal('Platform not supported');
