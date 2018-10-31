@@ -1,28 +1,25 @@
-import { Model } from 'mongoose';
+import { Model, Document } from 'mongoose';
 
-export default class ContentService {
+export default class ContentService<T extends Document> {
   /**
    * The mongodb content model
-   * @type {Model}
    */
-  // model
+  private readonly model: Model<T, {}>;
 
   /**
    * Projection which defines what content to show
-   * @type {Object}
    */
-  // projection
+  private readonly projection: Object;
 
   /**
    * Amount of content items per page
-   * @type {number}
    */
-  // pageSize
+  private readonly pageSize: number;
 
   /**
-   * @type {Object}
+   * 
    */
-  // query
+  readonly query: Object;
 
   /**
    *
@@ -32,28 +29,15 @@ export default class ContentService {
     projection,
     pageSize = 50,
     query
-  } = {}) {
-    /**
-     * The mongodb content model
-     * @type {Model}
-     */
+  }: {
+    model: Model<T, {}>,
+    projection: Object,
+    pageSize?: number,
+    query: Object
+  }) {
     this.model = model;
-
-    /**
-     * Projection which defines what content to show
-     * @type {Object}
-     */
     this.projection = projection;
-
-    /**
-     * Amount of content items per page
-     * @type {number}
-     */
     this.pageSize = pageSize;
-
-    /**
-     * @type {Object}
-     */
     this.query = query;
   }
 
@@ -66,8 +50,12 @@ export default class ContentService {
     sort,
     order,
     score = false
-  } = {}) {
-    const result = {};
+  }: {
+    sort: string,
+    order: number,
+    score: boolean
+  }) {
+    const result: any = {};
 
     if (score) {
       result.score = {
@@ -116,7 +104,7 @@ export default class ContentService {
   }
 
   async getPages() {
-    const totalResults = await this.model.count(this.query);
+    const totalResults = await this.model.estimatedDocumentCount(this.query);
     return {
       totalPages: Math.ceil(totalResults / this.pageSize),
       totalResults
@@ -133,7 +121,7 @@ export default class ContentService {
     const page = Number.isNaN(p) ? 0 : Number(p) - 1;
     const offset = page * this.pageSize;
 
-    let aggregateQuery = [{
+    let aggregateQuery: any = [{
       $match: query,
     }, {
       $project: this.projection

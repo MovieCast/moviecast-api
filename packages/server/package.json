@@ -4,7 +4,8 @@
   "description": "The Backend API Server of MovieCast",
   "main": "index.js",
   "scripts": {
-    "dev": "babel-node src/server.js"
+    "dev": "ts-node src/index.ts",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,8 @@
     "joi": "^13.6.0",
     "jsonwebtoken": "^8.3.0",
     "semver": "^5.5.1"
+  },
+  "devDependencies": {
+    "@types/hapi": "^17.6.2"
   }
 }

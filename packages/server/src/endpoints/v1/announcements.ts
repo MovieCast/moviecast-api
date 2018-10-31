@@ -6,7 +6,7 @@ import { AnnouncementService } from '../../services';
 module.exports = [{
   method: 'GET',
   path: '/announcements/{id}',
-  handler: async ({ params: { id = 'latest' } } = {}) => {
+  handler: async ({ params: { id = 'latest' } }: { params: { id: string } }) => {
     try {
       let annoucement;
       if (id === 'latest') {

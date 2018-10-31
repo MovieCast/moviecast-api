@@ -33,7 +33,7 @@ class VersionService {
     return !!found;
   }
 
-  async createVersion({name, title, notes, channel = 'stable', platforms } = {}) {
+  async createVersion({name, title, notes, channel = 'stable', platforms }: { name: string, title: string, notes?: string, channel: string, platforms: any }) {
     try {
       const version = await Version.create({
         name,
@@ -46,6 +46,7 @@ class VersionService {
       return version;
     } catch(e) {
       console.log(e);
+      throw e;
     }
   }
 }

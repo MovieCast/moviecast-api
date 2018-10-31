@@ -68,7 +68,7 @@ function createContentRoutes(baseName, service) {
         keywords: keywords && keywords !== ''
       }) : null;
   
-      let query = {
+      let query: any = {
         ...MovieService.query
       };
   

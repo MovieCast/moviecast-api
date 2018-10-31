@@ -7,7 +7,7 @@ module.exports = {
     pre: [
       { method: async (req) => await UserService.validateCredentials(req.payload), assign: 'user' }
     ],
-    handler: (request, h) => {
+    handler: (request) => {
       return {
         token: UserService.createJwtToken(request.pre.user)
       };

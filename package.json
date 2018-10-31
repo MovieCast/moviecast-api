@@ -24,10 +24,16 @@
     "lerna": "^2.11.0"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.2.22",
+    "@types/node": "^10.12.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.4"
   },
-  "workspaces": ["packages/*"]
+  "workspaces": [
+    "packages/*"
+  ]
 }

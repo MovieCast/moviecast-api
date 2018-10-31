@@ -2,6 +2,7 @@ import { User } from '@moviecast/api-models';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import Boom from 'boom';
+import { ObjectId } from 'bson';
 
 class UserService {
   async getUser(id) {
@@ -39,7 +40,7 @@ class UserService {
    * Validates the credentials of given username
    * @param {*} config An object with the username and password. 
    */
-  async validateCredentials({ username, password } = {}) {
+  async validateCredentials({ username, password }: { username: string, password: string }) {
     const user = await User.findOne({ username }).select('+password');
 
     if(user && await bcrypt.compare(password, user.password)) {
@@ -53,7 +54,7 @@ class UserService {
    * Validates a jwt token
    * @param {*} jwt Decoded jwt token
    */
-  async validateJwtToken({ id } = {}) {
+  async validateJwtToken({ id }: { id: ObjectId }) {
     const user = await this.getUser(id);
 
     return user != null;

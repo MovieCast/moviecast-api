@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig.base.json",
+  
+  "compilerOptions": {
+    //"rootDir": "src",
+    "outDir": "lib",
+    "baseUrl": "/",
+    "paths": {
+      "services": ["services"]
+    }
+  },
+
+  "include": [
+    "src/endpoints"
+  ],
+
+  "files": [
+    "src/index.ts"
+  ]
+}

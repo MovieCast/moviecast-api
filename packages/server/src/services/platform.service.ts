@@ -2,6 +2,8 @@ import useragent from 'express-useragent';
 import { Platform } from '@moviecast/api-models';
 
 class PlatformService {
+  private readonly platforms: any;
+
   constructor() {
     this.platforms = {
       LINUX: 'linux',

@@ -2,9 +2,15 @@ import { Announcement } from '@moviecast/api-models';
 
 import UserService from './user.service';
 
+interface AnnoucementOptions {
+  title: string,
+  content: string,
+  authorId: string
+}
+
 class AnnouncementsService {
   /**
-   * Returns the Announcements
+   * Gets the latest announcement.
    */
   async getLatestAnnouncement() {
     const annoucements = await Announcement
@@ -16,19 +22,30 @@ class AnnouncementsService {
     return annoucements.length == 1 ? annoucements[0] : null;
   }
 
-  async getAnnouncement(id) {
+  /**
+   * Gets an announcement by id.
+   * @param id The announcement to get
+   */
+  async getAnnouncement(id: string) {
     return await Announcement
       .findById(id)
       .populate('author');
   }
 
+  /**
+   * Gets all the announcements sorted by creation date.
+   */
   async getAnnouncements() {
     return await Announcement
       .find({}, '-author')
       .sort({ createdAt: 'desc' });
   }
 
-  async createAnnouncement({ title, content, authorId } = {}) {
+  /**
+   * Creates a new announcement.
+   * @param config Options for new annoucement
+   */
+  async createAnnouncement({ title, content, authorId }: AnnoucementOptions) {
     try {
       const author = await UserService.getUser(authorId);
 
@@ -40,13 +57,19 @@ class AnnouncementsService {
 
     } catch (e) {
       console.log(e);
+      throw e;
     }
   }
 
-  async updateAnnouncement(id, { title, content, authorId } = {}) {
+  /**
+   * Updates an existing announcement.
+   * @param id The announcement id
+   * @param config Options to update
+   */
+  async updateAnnouncement(id: string, { title, content, authorId }: AnnoucementOptions) {
     try {
 
-      return await Annoucement.findByIdAndUpdate(id, {
+      return await Announcement.findByIdAndUpdate(id, {
         title,
         content,
         authorId
@@ -54,6 +77,7 @@ class AnnouncementsService {
 
     } catch (e) {
       console.log(e);
+      throw e;
     }
   }
 }

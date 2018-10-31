@@ -2,9 +2,10 @@
   "name": "@moviecast/api-models",
   "version": "1.0.0",
   "description": "Models for MovieCast's API",
-  "main": "build/index.js",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.js",
   "scripts": {
-    "build": "babel src -d build",
+    "build": "tsc",
     "build:watch": "babel src -w -d build",
     "prepublish": "npm run build"
   },
@@ -19,6 +20,8 @@
     "url": "git+https://github.com/MovieCast/api.git"
   },
   "dependencies": {
-    "mongoose": "^5.3.7"
+    "mongoose": "^5.3.7",
+    "reflect-metadata": "^0.1.12",
+    "typegoose": "^5.4.1"
   }
 }
